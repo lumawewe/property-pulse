@@ -5,16 +5,17 @@ import { useRouter } from 'next/navigation';
 const PropertySearchForm = () => {
   const [location, setLocation] = useState('');
   const [propertyType, setPropertyType] = useState('All');
+  const [neighbourhood, setNeighbourhood] = useState('All');
 
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (location === '' && propertyType === 'All') {
+    if (location === '' && propertyType === 'All' && neighbourhood === 'All') {
       router.push('/properties');
     } else {
-      const query = `?location=${location}&propertyType=${propertyType}`;
+      const query = `?location=${location}&propertyType=${propertyType}&neighbourhood=${neighbourhood}`;
 
       router.push(`/properties/search-results${query}`);
     }
@@ -48,15 +49,30 @@ const PropertySearchForm = () => {
           value={propertyType}
           onChange={(e) => setPropertyType(e.target.value)}
         >
-          <option value='All'>All</option>
-          <option value='Apartment'>Apartment</option>
-          <option value='Studio'>Studio</option>
-          <option value='Condo'>Condo</option>
-          <option value='House'>House</option>
-          <option value='Cabin Or Cottage'>Cabin or Cottage</option>
-          <option value='Loft'>Loft</option>
-          <option value='Room'>Room</option>
-          <option value='Other'>Other</option>
+          <option value="Urban Studio Retreats" title="Studios modernos e compactos ideais para solteiros ou jovens casais que buscam praticidade e estilo em um espaço otimizado.">Urban Studio Retreats</option>
+          <option value="Comfort 2-Bedroom Apartments" title="Apartamentos de 2 quartos que oferecem espaço e conforto para pequenas famílias ou grupos de amigos, combinando design elegante com funcionalidades práticas.">Comfort 2-Bedroom Apartments</option>
+          <option value="Luxury 3-Bedroom Residences" title="Residências de 3 quartos que proporcionam um ambiente espaçoso e sofisticado, perfeito para famílias maiores ou profissionais que necessitam de espaço adicional para home office ou hobbies.">Luxury 3-Bedroom Residences</option>
+        </select>
+      </div>
+      <div className='w-full md:w-2/5 md:pl-2'>
+        <label htmlFor='property-neighbourhood' className='sr-only'>
+          Property Neighbourhood
+        </label>
+        <select
+          id='property-neighbourhood'
+          className='w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500'
+          value={neighbourhood}
+          onChange={(e) => setNeighbourhood(e.target.value)}
+        >
+          <option value="Jardim Paulista">Jardim Paulista</option>
+          <option value="Pinheiros">Pinheiros</option>
+          <option value="Vila Madalena">Vila Madalena</option>
+          <option value="Moema">Moema</option>
+          <option value="Brooklin">Brooklin</option>
+          <option value="Itaim Bibi">Itaim Bibi</option>
+          <option value="Higienópolis">Higienópolis</option>
+          <option value="Consolação">Consolação</option>
+          <option value="Bela Vista">Bela Vista</option>
         </select>
       </div>
       <button
@@ -68,4 +84,5 @@ const PropertySearchForm = () => {
     </form>
   );
 };
+
 export default PropertySearchForm;
